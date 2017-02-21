@@ -1,0 +1,122 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        
+	<context:property-placeholder location="classpath*:*.properties"/>
+	
+	<mvc:resources mapping="/html/**" location="/WEB-INF/html/"/>
+	
+	<context:component-scan base-package="com.kpap">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />  
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />  
+	</context:component-scan>
+
+	<mvc:annotation-driven conversion-service="conversionService">  
+    	<!-- 处理responseBody 里面日期类型 -->  
+        <mvc:message-converters >  
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
+                <property name="objectMapper">  
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">  
+                        <property name="dateFormat">  
+                            <bean class="java.text.SimpleDateFormat">  
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />  
+                            </bean>  
+                        </property> 
+                        <!-- 为null字段时不显示 -->
+                        <property name="serializationInclusion">
+                            <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
+                        </property>  
+                    </bean>  
+                </property>
+            </bean>  
+        </mvc:message-converters>  
+    </mvc:annotation-driven> 
+     
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+			<!-- 时间类型的参数转换 -->
+				<bean class="com.kpap.common.util.DateConverter"/>
+			</list>
+		</property>
+	</bean> 
+	
+    <mvc:default-servlet-handler/> 
+	
+	<bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver" >
+		<property name="prefix" value="/WEB-INF/templates/" />
+		<property name="suffix" value=".html" />
+		<property name="templateMode" value="HTML5" />
+		<property name="characterEncoding" value="UTF-8"/>
+		<property name="cacheable" value="false" />  
+	</bean>
+	
+	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine" >
+		<property name="templateResolver" ref="templateResolver" />
+	</bean>
+	
+	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+		<property name="characterEncoding" value="utf-8"/>
+  		<property name="templateEngine" ref="templateEngine" />
+	</bean>
+	
+	<bean id="multipartResolver" class="com.kpap.common.util.CusCommonsMultipartResolver">  
+        <property name="defaultEncoding" value="utf-8"></property>   
+        <property name="maxUploadSize" value="10485760000"></property>  
+        <property name="maxInMemorySize" value="40960"></property>  
+    </bean>  
+    
+    <mvc:interceptors>  
+    <!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->  
+        <bean class="com.kpap.common.util.SessionFilter">
+       	   <property name="noFilters">
+			   <list>
+				   <value>/login</value>
+				   <value>/lib</value>
+				   <value>/static</value>
+				   <value>/ajax/login</value>
+				   <value>/index.html</value>
+			   </list>
+		   </property>
+        </bean>  
+        <!--
+    	<mvc:interceptor>  
+            <mvc:mapping path="/test/number.do"/>  
+                        定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的  
+            <bean class="com.host.app.web.interceptor.LoginInterceptor"/>  
+        </mvc:interceptor>  
+        -->
+    </mvc:interceptors>  
+
+	 <!--配置异常映射路径,ajax提示 -->  
+     <bean id="exceptionResolver"  class="com.kpap.common.util.PlatformMappingExceptionResolver">  
+        <!-- 定义默认的异常处理页面，当该异常类型的注册时使用   -->
+    	<property name="defaultErrorView" value="error"></property>  
+    	<!-- 定义异常处理页面用来获取异常信息的变量名，默认名为exception   -->
+    	<property name="exceptionAttribute" value="ex"></property>  
+    	
+    	<property name="viewFilters">
+		   <list>
+			   <value>/ajax</value>
+		   </list>
+		 </property>
+    	<!-- 定义需要特殊处理的异常，用类名或完全路径名作为key，异常也页名作为值  -->
+<!--         <property name="exceptionMappings">  
+            <props>  
+                <prop key="com.cisdi.ecis.common.exception.BusinessException">error/error</prop>  
+                <prop key="java.lang.Exception">error/error</prop>  
+            </props>  
+        </property>   -->
+         
+    </bean>
+</beans>
+
+
+

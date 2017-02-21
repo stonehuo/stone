@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kpap.basis.dao.ProValCaseMapper" >
+  <resultMap id="BaseResultMap" type="com.kpap.basis.model.ProValCase" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="case_id" property="caseId" jdbcType="BIGINT" />
+    <result column="pro_code" property="proCode" jdbcType="VARCHAR" />
+    <result column="pro_val_id" property="proValId" jdbcType="BIGINT" />
+    <result column="price" property="price" jdbcType="NUMERIC" />
+    <result column="trans_date" property="transDate" jdbcType="DATE" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="m1" property="m1" jdbcType="NUMERIC" />
+    <result column="m2" property="m2" jdbcType="NUMERIC" />
+    <result column="m3" property="m3" jdbcType="NUMERIC" />
+    <result column="m4" property="m4" jdbcType="NUMERIC" />
+    <result column="json" property="json" jdbcType="VARCHAR" />
+    <result column="is_complete" property="isComplete" jdbcType="BIT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="m1_ratio" property="m1Ratio" jdbcType="NUMERIC" />
+    <result column="m2_ratio" property="m2Ratio" jdbcType="NUMERIC" />
+    <result column="m3_ratio" property="m3Ratio" jdbcType="NUMERIC" />
+    <result column="m4_ratio" property="m4Ratio" jdbcType="NUMERIC" />
+    <result column="weight" property="weight" jdbcType="NUMERIC" />
+    <result column="price_cal" property="priceCal" jdbcType="NUMERIC" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, case_id, pro_code, pro_val_id, price, trans_date, name, m1, m2, m3, m4, json, 
+    is_complete, create_date, modify_date, m1_ratio, m2_ratio, m3_ratio, m4_ratio, weight, 
+    price_cal
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kpap.basis.model.ProValCaseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from pro_val_case
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart>=0 and limitEnd>=1" >
+      limit ${limitEnd} offset ${limitStart}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from pro_val_case
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from pro_val_case
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kpap.basis.model.ProValCaseExample" >
+    delete from pro_val_case
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kpap.basis.model.ProValCase" >
+    insert into pro_val_case (id, case_id, pro_code, 
+      pro_val_id, price, trans_date, 
+      name, m1, m2, m3, 
+      m4, json, is_complete, create_date, 
+      modify_date, m1_ratio, m2_ratio, 
+      m3_ratio, m4_ratio, weight, 
+      price_cal)
+    values (#{id,jdbcType=BIGINT}, #{caseId,jdbcType=BIGINT}, #{proCode,jdbcType=VARCHAR}, 
+      #{proValId,jdbcType=BIGINT}, #{price,jdbcType=NUMERIC}, #{transDate,jdbcType=DATE}, 
+      #{name,jdbcType=VARCHAR}, #{m1,jdbcType=NUMERIC}, #{m2,jdbcType=NUMERIC}, #{m3,jdbcType=NUMERIC}, 
+      #{m4,jdbcType=NUMERIC}, #{json,jdbcType=VARCHAR}, #{isComplete,jdbcType=BIT}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{m1Ratio,jdbcType=NUMERIC}, #{m2Ratio,jdbcType=NUMERIC}, 
+      #{m3Ratio,jdbcType=NUMERIC}, #{m4Ratio,jdbcType=NUMERIC}, #{weight,jdbcType=NUMERIC}, 
+      #{priceCal,jdbcType=NUMERIC})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kpap.basis.model.ProValCase" >
+    insert into pro_val_case
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="caseId != null" >
+        case_id,
+      </if>
+      <if test="proCode != null" >
+        pro_code,
+      </if>
+      <if test="proValId != null" >
+        pro_val_id,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="transDate != null" >
+        trans_date,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="m1 != null" >
+        m1,
+      </if>
+      <if test="m2 != null" >
+        m2,
+      </if>
+      <if test="m3 != null" >
+        m3,
+      </if>
+      <if test="m4 != null" >
+        m4,
+      </if>
+      <if test="json != null" >
+        json,
+      </if>
+      <if test="isComplete != null" >
+        is_complete,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="m1Ratio != null" >
+        m1_ratio,
+      </if>
+      <if test="m2Ratio != null" >
+        m2_ratio,
+      </if>
+      <if test="m3Ratio != null" >
+        m3_ratio,
+      </if>
+      <if test="m4Ratio != null" >
+        m4_ratio,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="priceCal != null" >
+        price_cal,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="caseId != null" >
+        #{caseId,jdbcType=BIGINT},
+      </if>
+      <if test="proCode != null" >
+        #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="proValId != null" >
+        #{proValId,jdbcType=BIGINT},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="transDate != null" >
+        #{transDate,jdbcType=DATE},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="m1 != null" >
+        #{m1,jdbcType=NUMERIC},
+      </if>
+      <if test="m2 != null" >
+        #{m2,jdbcType=NUMERIC},
+      </if>
+      <if test="m3 != null" >
+        #{m3,jdbcType=NUMERIC},
+      </if>
+      <if test="m4 != null" >
+        #{m4,jdbcType=NUMERIC},
+      </if>
+      <if test="json != null" >
+        #{json,jdbcType=VARCHAR},
+      </if>
+      <if test="isComplete != null" >
+        #{isComplete,jdbcType=BIT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="m1Ratio != null" >
+        #{m1Ratio,jdbcType=NUMERIC},
+      </if>
+      <if test="m2Ratio != null" >
+        #{m2Ratio,jdbcType=NUMERIC},
+      </if>
+      <if test="m3Ratio != null" >
+        #{m3Ratio,jdbcType=NUMERIC},
+      </if>
+      <if test="m4Ratio != null" >
+        #{m4Ratio,jdbcType=NUMERIC},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=NUMERIC},
+      </if>
+      <if test="priceCal != null" >
+        #{priceCal,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kpap.basis.model.ProValCaseExample" resultType="java.lang.Integer" >
+    select count(*) from pro_val_case
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pro_val_case
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.caseId != null" >
+        case_id = #{record.caseId,jdbcType=BIGINT},
+      </if>
+      <if test="record.proCode != null" >
+        pro_code = #{record.proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proValId != null" >
+        pro_val_id = #{record.proValId,jdbcType=BIGINT},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=NUMERIC},
+      </if>
+      <if test="record.transDate != null" >
+        trans_date = #{record.transDate,jdbcType=DATE},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.m1 != null" >
+        m1 = #{record.m1,jdbcType=NUMERIC},
+      </if>
+      <if test="record.m2 != null" >
+        m2 = #{record.m2,jdbcType=NUMERIC},
+      </if>
+      <if test="record.m3 != null" >
+        m3 = #{record.m3,jdbcType=NUMERIC},
+      </if>
+      <if test="record.m4 != null" >
+        m4 = #{record.m4,jdbcType=NUMERIC},
+      </if>
+      <if test="record.json != null" >
+        json = #{record.json,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isComplete != null" >
+        is_complete = #{record.isComplete,jdbcType=BIT},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null" >
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.m1Ratio != null" >
+        m1_ratio = #{record.m1Ratio,jdbcType=NUMERIC},
+      </if>
+      <if test="record.m2Ratio != null" >
+        m2_ratio = #{record.m2Ratio,jdbcType=NUMERIC},
+      </if>
+      <if test="record.m3Ratio != null" >
+        m3_ratio = #{record.m3Ratio,jdbcType=NUMERIC},
+      </if>
+      <if test="record.m4Ratio != null" >
+        m4_ratio = #{record.m4Ratio,jdbcType=NUMERIC},
+      </if>
+      <if test="record.weight != null" >
+        weight = #{record.weight,jdbcType=NUMERIC},
+      </if>
+      <if test="record.priceCal != null" >
+        price_cal = #{record.priceCal,jdbcType=NUMERIC},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pro_val_case
+    set id = #{record.id,jdbcType=BIGINT},
+      case_id = #{record.caseId,jdbcType=BIGINT},
+      pro_code = #{record.proCode,jdbcType=VARCHAR},
+      pro_val_id = #{record.proValId,jdbcType=BIGINT},
+      price = #{record.price,jdbcType=NUMERIC},
+      trans_date = #{record.transDate,jdbcType=DATE},
+      name = #{record.name,jdbcType=VARCHAR},
+      m1 = #{record.m1,jdbcType=NUMERIC},
+      m2 = #{record.m2,jdbcType=NUMERIC},
+      m3 = #{record.m3,jdbcType=NUMERIC},
+      m4 = #{record.m4,jdbcType=NUMERIC},
+      json = #{record.json,jdbcType=VARCHAR},
+      is_complete = #{record.isComplete,jdbcType=BIT},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      m1_ratio = #{record.m1Ratio,jdbcType=NUMERIC},
+      m2_ratio = #{record.m2Ratio,jdbcType=NUMERIC},
+      m3_ratio = #{record.m3Ratio,jdbcType=NUMERIC},
+      m4_ratio = #{record.m4Ratio,jdbcType=NUMERIC},
+      weight = #{record.weight,jdbcType=NUMERIC},
+      price_cal = #{record.priceCal,jdbcType=NUMERIC}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kpap.basis.model.ProValCase" >
+    update pro_val_case
+    <set >
+      <if test="caseId != null" >
+        case_id = #{caseId,jdbcType=BIGINT},
+      </if>
+      <if test="proCode != null" >
+        pro_code = #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="proValId != null" >
+        pro_val_id = #{proValId,jdbcType=BIGINT},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="transDate != null" >
+        trans_date = #{transDate,jdbcType=DATE},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="m1 != null" >
+        m1 = #{m1,jdbcType=NUMERIC},
+      </if>
+      <if test="m2 != null" >
+        m2 = #{m2,jdbcType=NUMERIC},
+      </if>
+      <if test="m3 != null" >
+        m3 = #{m3,jdbcType=NUMERIC},
+      </if>
+      <if test="m4 != null" >
+        m4 = #{m4,jdbcType=NUMERIC},
+      </if>
+      <if test="json != null" >
+        json = #{json,jdbcType=VARCHAR},
+      </if>
+      <if test="isComplete != null" >
+        is_complete = #{isComplete,jdbcType=BIT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="m1Ratio != null" >
+        m1_ratio = #{m1Ratio,jdbcType=NUMERIC},
+      </if>
+      <if test="m2Ratio != null" >
+        m2_ratio = #{m2Ratio,jdbcType=NUMERIC},
+      </if>
+      <if test="m3Ratio != null" >
+        m3_ratio = #{m3Ratio,jdbcType=NUMERIC},
+      </if>
+      <if test="m4Ratio != null" >
+        m4_ratio = #{m4Ratio,jdbcType=NUMERIC},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=NUMERIC},
+      </if>
+      <if test="priceCal != null" >
+        price_cal = #{priceCal,jdbcType=NUMERIC},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kpap.basis.model.ProValCase" >
+    update pro_val_case
+    set case_id = #{caseId,jdbcType=BIGINT},
+      pro_code = #{proCode,jdbcType=VARCHAR},
+      pro_val_id = #{proValId,jdbcType=BIGINT},
+      price = #{price,jdbcType=NUMERIC},
+      trans_date = #{transDate,jdbcType=DATE},
+      name = #{name,jdbcType=VARCHAR},
+      m1 = #{m1,jdbcType=NUMERIC},
+      m2 = #{m2,jdbcType=NUMERIC},
+      m3 = #{m3,jdbcType=NUMERIC},
+      m4 = #{m4,jdbcType=NUMERIC},
+      json = #{json,jdbcType=VARCHAR},
+      is_complete = #{isComplete,jdbcType=BIT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      m1_ratio = #{m1Ratio,jdbcType=NUMERIC},
+      m2_ratio = #{m2Ratio,jdbcType=NUMERIC},
+      m3_ratio = #{m3Ratio,jdbcType=NUMERIC},
+      m4_ratio = #{m4Ratio,jdbcType=NUMERIC},
+      weight = #{weight,jdbcType=NUMERIC},
+      price_cal = #{priceCal,jdbcType=NUMERIC}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

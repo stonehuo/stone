@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kpap.basis.dao.ComMapper" >
+  <resultMap id="BaseResultMap" type="com.kpap.basis.model.Com" >
+    <id column="pro_code" property="proCode" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="representative " property="representative" jdbcType="VARCHAR" />
+    <result column="bus_scope" property="busScope" jdbcType="VARCHAR" />
+    <result column="setup_date" property="setupDate" jdbcType="DATE" />
+    <result column="bus_term" property="busTerm" jdbcType="VARCHAR" />
+    <result column="tax_rate" property="taxRate" jdbcType="NUMERIC" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="json_com_sub" property="jsonComSub" jdbcType="VARCHAR" />
+    <result column="count_fm" property="countFm" jdbcType="INTEGER" />
+    <result column="count_sq" property="countSq" jdbcType="INTEGER" />
+    <result column="count_xx" property="countXx" jdbcType="INTEGER" />
+    <result column="count_wg" property="countWg" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="NUMERIC" />
+    <result column="count_iq_com" property="countIqCom" jdbcType="INTEGER" />
+    <result column="count_iq_com_avail" property="countIqComAvail" jdbcType="INTEGER" />
+    <result column="count_iq_fm" property="countIqFm" jdbcType="INTEGER" />
+    <result column="count_iq_sq" property="countIqSq" jdbcType="INTEGER" />
+    <result column="count_iq_xx" property="countIqXx" jdbcType="INTEGER" />
+    <result column="count_iq_wg" property="countIqWg" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pro_code, name, address, "representative ", bus_scope, setup_date, bus_term, tax_rate, 
+    phone, email, create_date, json_com_sub, count_fm, count_sq, count_xx, count_wg, 
+    score, count_iq_com, count_iq_com_avail, count_iq_fm, count_iq_sq, count_iq_xx, count_iq_wg
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kpap.basis.model.ComExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from com
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart>=0 and limitEnd>=1" >
+      limit ${limitEnd} offset ${limitStart}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from com
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from com
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kpap.basis.model.ComExample" >
+    delete from com
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kpap.basis.model.Com" >
+    insert into com (pro_code, name, address, 
+      "representative ", bus_scope, setup_date, 
+      bus_term, tax_rate, phone, 
+      email, create_date, json_com_sub, 
+      count_fm, count_sq, count_xx, 
+      count_wg, score, count_iq_com, 
+      count_iq_com_avail, count_iq_fm, count_iq_sq, 
+      count_iq_xx, count_iq_wg)
+    values (#{proCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{representative,jdbcType=VARCHAR}, #{busScope,jdbcType=VARCHAR}, #{setupDate,jdbcType=DATE}, 
+      #{busTerm,jdbcType=VARCHAR}, #{taxRate,jdbcType=NUMERIC}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{jsonComSub,jdbcType=VARCHAR}, 
+      #{countFm,jdbcType=INTEGER}, #{countSq,jdbcType=INTEGER}, #{countXx,jdbcType=INTEGER}, 
+      #{countWg,jdbcType=INTEGER}, #{score,jdbcType=NUMERIC}, #{countIqCom,jdbcType=INTEGER}, 
+      #{countIqComAvail,jdbcType=INTEGER}, #{countIqFm,jdbcType=INTEGER}, #{countIqSq,jdbcType=INTEGER}, 
+      #{countIqXx,jdbcType=INTEGER}, #{countIqWg,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kpap.basis.model.Com" >
+    insert into com
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proCode != null" >
+        pro_code,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="representative != null" >
+        "representative ",
+      </if>
+      <if test="busScope != null" >
+        bus_scope,
+      </if>
+      <if test="setupDate != null" >
+        setup_date,
+      </if>
+      <if test="busTerm != null" >
+        bus_term,
+      </if>
+      <if test="taxRate != null" >
+        tax_rate,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="jsonComSub != null" >
+        json_com_sub,
+      </if>
+      <if test="countFm != null" >
+        count_fm,
+      </if>
+      <if test="countSq != null" >
+        count_sq,
+      </if>
+      <if test="countXx != null" >
+        count_xx,
+      </if>
+      <if test="countWg != null" >
+        count_wg,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="countIqCom != null" >
+        count_iq_com,
+      </if>
+      <if test="countIqComAvail != null" >
+        count_iq_com_avail,
+      </if>
+      <if test="countIqFm != null" >
+        count_iq_fm,
+      </if>
+      <if test="countIqSq != null" >
+        count_iq_sq,
+      </if>
+      <if test="countIqXx != null" >
+        count_iq_xx,
+      </if>
+      <if test="countIqWg != null" >
+        count_iq_wg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proCode != null" >
+        #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="representative != null" >
+        #{representative,jdbcType=VARCHAR},
+      </if>
+      <if test="busScope != null" >
+        #{busScope,jdbcType=VARCHAR},
+      </if>
+      <if test="setupDate != null" >
+        #{setupDate,jdbcType=DATE},
+      </if>
+      <if test="busTerm != null" >
+        #{busTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRate != null" >
+        #{taxRate,jdbcType=NUMERIC},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsonComSub != null" >
+        #{jsonComSub,jdbcType=VARCHAR},
+      </if>
+      <if test="countFm != null" >
+        #{countFm,jdbcType=INTEGER},
+      </if>
+      <if test="countSq != null" >
+        #{countSq,jdbcType=INTEGER},
+      </if>
+      <if test="countXx != null" >
+        #{countXx,jdbcType=INTEGER},
+      </if>
+      <if test="countWg != null" >
+        #{countWg,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=NUMERIC},
+      </if>
+      <if test="countIqCom != null" >
+        #{countIqCom,jdbcType=INTEGER},
+      </if>
+      <if test="countIqComAvail != null" >
+        #{countIqComAvail,jdbcType=INTEGER},
+      </if>
+      <if test="countIqFm != null" >
+        #{countIqFm,jdbcType=INTEGER},
+      </if>
+      <if test="countIqSq != null" >
+        #{countIqSq,jdbcType=INTEGER},
+      </if>
+      <if test="countIqXx != null" >
+        #{countIqXx,jdbcType=INTEGER},
+      </if>
+      <if test="countIqWg != null" >
+        #{countIqWg,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kpap.basis.model.ComExample" resultType="java.lang.Integer" >
+    select count(*) from com
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update com
+    <set >
+      <if test="record.proCode != null" >
+        pro_code = #{record.proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.representative != null" >
+        "representative " = #{record.representative,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busScope != null" >
+        bus_scope = #{record.busScope,jdbcType=VARCHAR},
+      </if>
+      <if test="record.setupDate != null" >
+        setup_date = #{record.setupDate,jdbcType=DATE},
+      </if>
+      <if test="record.busTerm != null" >
+        bus_term = #{record.busTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxRate != null" >
+        tax_rate = #{record.taxRate,jdbcType=NUMERIC},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.jsonComSub != null" >
+        json_com_sub = #{record.jsonComSub,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countFm != null" >
+        count_fm = #{record.countFm,jdbcType=INTEGER},
+      </if>
+      <if test="record.countSq != null" >
+        count_sq = #{record.countSq,jdbcType=INTEGER},
+      </if>
+      <if test="record.countXx != null" >
+        count_xx = #{record.countXx,jdbcType=INTEGER},
+      </if>
+      <if test="record.countWg != null" >
+        count_wg = #{record.countWg,jdbcType=INTEGER},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=NUMERIC},
+      </if>
+      <if test="record.countIqCom != null" >
+        count_iq_com = #{record.countIqCom,jdbcType=INTEGER},
+      </if>
+      <if test="record.countIqComAvail != null" >
+        count_iq_com_avail = #{record.countIqComAvail,jdbcType=INTEGER},
+      </if>
+      <if test="record.countIqFm != null" >
+        count_iq_fm = #{record.countIqFm,jdbcType=INTEGER},
+      </if>
+      <if test="record.countIqSq != null" >
+        count_iq_sq = #{record.countIqSq,jdbcType=INTEGER},
+      </if>
+      <if test="record.countIqXx != null" >
+        count_iq_xx = #{record.countIqXx,jdbcType=INTEGER},
+      </if>
+      <if test="record.countIqWg != null" >
+        count_iq_wg = #{record.countIqWg,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update com
+    set pro_code = #{record.proCode,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      "representative " = #{record.representative,jdbcType=VARCHAR},
+      bus_scope = #{record.busScope,jdbcType=VARCHAR},
+      setup_date = #{record.setupDate,jdbcType=DATE},
+      bus_term = #{record.busTerm,jdbcType=VARCHAR},
+      tax_rate = #{record.taxRate,jdbcType=NUMERIC},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      json_com_sub = #{record.jsonComSub,jdbcType=VARCHAR},
+      count_fm = #{record.countFm,jdbcType=INTEGER},
+      count_sq = #{record.countSq,jdbcType=INTEGER},
+      count_xx = #{record.countXx,jdbcType=INTEGER},
+      count_wg = #{record.countWg,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=NUMERIC},
+      count_iq_com = #{record.countIqCom,jdbcType=INTEGER},
+      count_iq_com_avail = #{record.countIqComAvail,jdbcType=INTEGER},
+      count_iq_fm = #{record.countIqFm,jdbcType=INTEGER},
+      count_iq_sq = #{record.countIqSq,jdbcType=INTEGER},
+      count_iq_xx = #{record.countIqXx,jdbcType=INTEGER},
+      count_iq_wg = #{record.countIqWg,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kpap.basis.model.Com" >
+    update com
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="representative != null" >
+        "representative " = #{representative,jdbcType=VARCHAR},
+      </if>
+      <if test="busScope != null" >
+        bus_scope = #{busScope,jdbcType=VARCHAR},
+      </if>
+      <if test="setupDate != null" >
+        setup_date = #{setupDate,jdbcType=DATE},
+      </if>
+      <if test="busTerm != null" >
+        bus_term = #{busTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRate != null" >
+        tax_rate = #{taxRate,jdbcType=NUMERIC},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsonComSub != null" >
+        json_com_sub = #{jsonComSub,jdbcType=VARCHAR},
+      </if>
+      <if test="countFm != null" >
+        count_fm = #{countFm,jdbcType=INTEGER},
+      </if>
+      <if test="countSq != null" >
+        count_sq = #{countSq,jdbcType=INTEGER},
+      </if>
+      <if test="countXx != null" >
+        count_xx = #{countXx,jdbcType=INTEGER},
+      </if>
+      <if test="countWg != null" >
+        count_wg = #{countWg,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=NUMERIC},
+      </if>
+      <if test="countIqCom != null" >
+        count_iq_com = #{countIqCom,jdbcType=INTEGER},
+      </if>
+      <if test="countIqComAvail != null" >
+        count_iq_com_avail = #{countIqComAvail,jdbcType=INTEGER},
+      </if>
+      <if test="countIqFm != null" >
+        count_iq_fm = #{countIqFm,jdbcType=INTEGER},
+      </if>
+      <if test="countIqSq != null" >
+        count_iq_sq = #{countIqSq,jdbcType=INTEGER},
+      </if>
+      <if test="countIqXx != null" >
+        count_iq_xx = #{countIqXx,jdbcType=INTEGER},
+      </if>
+      <if test="countIqWg != null" >
+        count_iq_wg = #{countIqWg,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kpap.basis.model.Com" >
+    update com
+    set name = #{name,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      "representative " = #{representative,jdbcType=VARCHAR},
+      bus_scope = #{busScope,jdbcType=VARCHAR},
+      setup_date = #{setupDate,jdbcType=DATE},
+      bus_term = #{busTerm,jdbcType=VARCHAR},
+      tax_rate = #{taxRate,jdbcType=NUMERIC},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      json_com_sub = #{jsonComSub,jdbcType=VARCHAR},
+      count_fm = #{countFm,jdbcType=INTEGER},
+      count_sq = #{countSq,jdbcType=INTEGER},
+      count_xx = #{countXx,jdbcType=INTEGER},
+      count_wg = #{countWg,jdbcType=INTEGER},
+      score = #{score,jdbcType=NUMERIC},
+      count_iq_com = #{countIqCom,jdbcType=INTEGER},
+      count_iq_com_avail = #{countIqComAvail,jdbcType=INTEGER},
+      count_iq_fm = #{countIqFm,jdbcType=INTEGER},
+      count_iq_sq = #{countIqSq,jdbcType=INTEGER},
+      count_iq_xx = #{countIqXx,jdbcType=INTEGER},
+      count_iq_wg = #{countIqWg,jdbcType=INTEGER}
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

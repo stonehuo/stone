@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kpap.basis.dao.IqRatiosMapper" >
+  <resultMap id="BaseResultMap" type="com.kpap.basis.model.IqRatios" >
+    <id column="pro_code" property="proCode" jdbcType="VARCHAR" />
+    <result column="h37" property="h37" jdbcType="NUMERIC" />
+    <result column="g37" property="g37" jdbcType="NUMERIC" />
+    <result column="l37" property="l37" jdbcType="NUMERIC" />
+    <result column="m37" property="m37" jdbcType="NUMERIC" />
+    <result column="h53" property="h53" jdbcType="NUMERIC" />
+    <result column="g53" property="g53" jdbcType="NUMERIC" />
+    <result column="l53" property="l53" jdbcType="NUMERIC" />
+    <result column="m53" property="m53" jdbcType="NUMERIC" />
+    <result column="json_ave_collect" property="jsonAveCollect" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pro_code, h37, g37, l37, m37, h53, g53, l53, m53, json_ave_collect
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kpap.basis.model.IqRatiosExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from iq_ratios
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart>=0 and limitEnd>=1" >
+      limit ${limitEnd} offset ${limitStart}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from iq_ratios
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from iq_ratios
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kpap.basis.model.IqRatiosExample" >
+    delete from iq_ratios
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kpap.basis.model.IqRatios" >
+    insert into iq_ratios (pro_code, h37, g37, 
+      l37, m37, h53, g53, 
+      l53, m53, json_ave_collect
+      )
+    values (#{proCode,jdbcType=VARCHAR}, #{h37,jdbcType=NUMERIC}, #{g37,jdbcType=NUMERIC}, 
+      #{l37,jdbcType=NUMERIC}, #{m37,jdbcType=NUMERIC}, #{h53,jdbcType=NUMERIC}, #{g53,jdbcType=NUMERIC}, 
+      #{l53,jdbcType=NUMERIC}, #{m53,jdbcType=NUMERIC}, #{jsonAveCollect,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kpap.basis.model.IqRatios" >
+    insert into iq_ratios
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proCode != null" >
+        pro_code,
+      </if>
+      <if test="h37 != null" >
+        h37,
+      </if>
+      <if test="g37 != null" >
+        g37,
+      </if>
+      <if test="l37 != null" >
+        l37,
+      </if>
+      <if test="m37 != null" >
+        m37,
+      </if>
+      <if test="h53 != null" >
+        h53,
+      </if>
+      <if test="g53 != null" >
+        g53,
+      </if>
+      <if test="l53 != null" >
+        l53,
+      </if>
+      <if test="m53 != null" >
+        m53,
+      </if>
+      <if test="jsonAveCollect != null" >
+        json_ave_collect,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proCode != null" >
+        #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="h37 != null" >
+        #{h37,jdbcType=NUMERIC},
+      </if>
+      <if test="g37 != null" >
+        #{g37,jdbcType=NUMERIC},
+      </if>
+      <if test="l37 != null" >
+        #{l37,jdbcType=NUMERIC},
+      </if>
+      <if test="m37 != null" >
+        #{m37,jdbcType=NUMERIC},
+      </if>
+      <if test="h53 != null" >
+        #{h53,jdbcType=NUMERIC},
+      </if>
+      <if test="g53 != null" >
+        #{g53,jdbcType=NUMERIC},
+      </if>
+      <if test="l53 != null" >
+        #{l53,jdbcType=NUMERIC},
+      </if>
+      <if test="m53 != null" >
+        #{m53,jdbcType=NUMERIC},
+      </if>
+      <if test="jsonAveCollect != null" >
+        #{jsonAveCollect,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kpap.basis.model.IqRatiosExample" resultType="java.lang.Integer" >
+    select count(*) from iq_ratios
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update iq_ratios
+    <set >
+      <if test="record.proCode != null" >
+        pro_code = #{record.proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.h37 != null" >
+        h37 = #{record.h37,jdbcType=NUMERIC},
+      </if>
+      <if test="record.g37 != null" >
+        g37 = #{record.g37,jdbcType=NUMERIC},
+      </if>
+      <if test="record.l37 != null" >
+        l37 = #{record.l37,jdbcType=NUMERIC},
+      </if>
+      <if test="record.m37 != null" >
+        m37 = #{record.m37,jdbcType=NUMERIC},
+      </if>
+      <if test="record.h53 != null" >
+        h53 = #{record.h53,jdbcType=NUMERIC},
+      </if>
+      <if test="record.g53 != null" >
+        g53 = #{record.g53,jdbcType=NUMERIC},
+      </if>
+      <if test="record.l53 != null" >
+        l53 = #{record.l53,jdbcType=NUMERIC},
+      </if>
+      <if test="record.m53 != null" >
+        m53 = #{record.m53,jdbcType=NUMERIC},
+      </if>
+      <if test="record.jsonAveCollect != null" >
+        json_ave_collect = #{record.jsonAveCollect,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update iq_ratios
+    set pro_code = #{record.proCode,jdbcType=VARCHAR},
+      h37 = #{record.h37,jdbcType=NUMERIC},
+      g37 = #{record.g37,jdbcType=NUMERIC},
+      l37 = #{record.l37,jdbcType=NUMERIC},
+      m37 = #{record.m37,jdbcType=NUMERIC},
+      h53 = #{record.h53,jdbcType=NUMERIC},
+      g53 = #{record.g53,jdbcType=NUMERIC},
+      l53 = #{record.l53,jdbcType=NUMERIC},
+      m53 = #{record.m53,jdbcType=NUMERIC},
+      json_ave_collect = #{record.jsonAveCollect,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kpap.basis.model.IqRatios" >
+    update iq_ratios
+    <set >
+      <if test="h37 != null" >
+        h37 = #{h37,jdbcType=NUMERIC},
+      </if>
+      <if test="g37 != null" >
+        g37 = #{g37,jdbcType=NUMERIC},
+      </if>
+      <if test="l37 != null" >
+        l37 = #{l37,jdbcType=NUMERIC},
+      </if>
+      <if test="m37 != null" >
+        m37 = #{m37,jdbcType=NUMERIC},
+      </if>
+      <if test="h53 != null" >
+        h53 = #{h53,jdbcType=NUMERIC},
+      </if>
+      <if test="g53 != null" >
+        g53 = #{g53,jdbcType=NUMERIC},
+      </if>
+      <if test="l53 != null" >
+        l53 = #{l53,jdbcType=NUMERIC},
+      </if>
+      <if test="m53 != null" >
+        m53 = #{m53,jdbcType=NUMERIC},
+      </if>
+      <if test="jsonAveCollect != null" >
+        json_ave_collect = #{jsonAveCollect,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kpap.basis.model.IqRatios" >
+    update iq_ratios
+    set h37 = #{h37,jdbcType=NUMERIC},
+      g37 = #{g37,jdbcType=NUMERIC},
+      l37 = #{l37,jdbcType=NUMERIC},
+      m37 = #{m37,jdbcType=NUMERIC},
+      h53 = #{h53,jdbcType=NUMERIC},
+      g53 = #{g53,jdbcType=NUMERIC},
+      l53 = #{l53,jdbcType=NUMERIC},
+      m53 = #{m53,jdbcType=NUMERIC},
+      json_ave_collect = #{jsonAveCollect,jdbcType=VARCHAR}
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

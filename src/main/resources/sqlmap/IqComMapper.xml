@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kpap.basis.dao.IqComMapper" >
+  <resultMap id="BaseResultMap" type="com.kpap.basis.model.IqCom" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="pro_code" property="proCode" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="exchange_ticker" property="exchangeTicker" jdbcType="VARCHAR" />
+    <result column="ipo_address" property="ipoAddress" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="json_com_sub" property="jsonComSub" jdbcType="VARCHAR" />
+    <result column="ipo_time" property="ipoTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, pro_code, name, exchange_ticker, ipo_address, remark, create_date, json_com_sub, 
+    ipo_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kpap.basis.model.IqComExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from iq_com
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart>=0 and limitEnd>=1" >
+      limit ${limitEnd} offset ${limitStart}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from iq_com
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from iq_com
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kpap.basis.model.IqComExample" >
+    delete from iq_com
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kpap.basis.model.IqCom" >
+    insert into iq_com (id, pro_code, name, 
+      exchange_ticker, ipo_address, remark, 
+      create_date, json_com_sub, ipo_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{proCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{exchangeTicker,jdbcType=VARCHAR}, #{ipoAddress,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{jsonComSub,jdbcType=VARCHAR}, #{ipoTime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kpap.basis.model.IqCom" >
+    insert into iq_com
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="proCode != null" >
+        pro_code,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="exchangeTicker != null" >
+        exchange_ticker,
+      </if>
+      <if test="ipoAddress != null" >
+        ipo_address,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="jsonComSub != null" >
+        json_com_sub,
+      </if>
+      <if test="ipoTime != null" >
+        ipo_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="proCode != null" >
+        #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangeTicker != null" >
+        #{exchangeTicker,jdbcType=VARCHAR},
+      </if>
+      <if test="ipoAddress != null" >
+        #{ipoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsonComSub != null" >
+        #{jsonComSub,jdbcType=VARCHAR},
+      </if>
+      <if test="ipoTime != null" >
+        #{ipoTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kpap.basis.model.IqComExample" resultType="java.lang.Integer" >
+    select count(*) from iq_com
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update iq_com
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.proCode != null" >
+        pro_code = #{record.proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exchangeTicker != null" >
+        exchange_ticker = #{record.exchangeTicker,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipoAddress != null" >
+        ipo_address = #{record.ipoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.jsonComSub != null" >
+        json_com_sub = #{record.jsonComSub,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipoTime != null" >
+        ipo_time = #{record.ipoTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update iq_com
+    set id = #{record.id,jdbcType=BIGINT},
+      pro_code = #{record.proCode,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      exchange_ticker = #{record.exchangeTicker,jdbcType=VARCHAR},
+      ipo_address = #{record.ipoAddress,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      json_com_sub = #{record.jsonComSub,jdbcType=VARCHAR},
+      ipo_time = #{record.ipoTime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kpap.basis.model.IqCom" >
+    update iq_com
+    <set >
+      <if test="proCode != null" >
+        pro_code = #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangeTicker != null" >
+        exchange_ticker = #{exchangeTicker,jdbcType=VARCHAR},
+      </if>
+      <if test="ipoAddress != null" >
+        ipo_address = #{ipoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsonComSub != null" >
+        json_com_sub = #{jsonComSub,jdbcType=VARCHAR},
+      </if>
+      <if test="ipoTime != null" >
+        ipo_time = #{ipoTime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kpap.basis.model.IqCom" >
+    update iq_com
+    set pro_code = #{proCode,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      exchange_ticker = #{exchangeTicker,jdbcType=VARCHAR},
+      ipo_address = #{ipoAddress,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      json_com_sub = #{jsonComSub,jdbcType=VARCHAR},
+      ipo_time = #{ipoTime,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

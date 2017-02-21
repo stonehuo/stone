@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kpap.basis.dao.ProDcfMapper" >
+  <resultMap id="BaseResultMap" type="com.kpap.basis.model.ProDcf" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="pro_code" property="proCode" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="CHAR" />
+    <result column="income" property="income" jdbcType="NUMERIC" />
+    <result column="profit_rate" property="profitRate" jdbcType="NUMERIC" />
+    <result column="profit" property="profit" jdbcType="NUMERIC" />
+    <result column="discount_rate" property="discountRate" jdbcType="NUMERIC" />
+    <result column="series_year" property="seriesYear" jdbcType="NUMERIC" />
+    <result column="discount_factor" property="discountFactor" jdbcType="NUMERIC" />
+    <result column="discount_value" property="discountValue" jdbcType="NUMERIC" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, pro_code, year, income, profit_rate, profit, discount_rate, series_year, discount_factor, 
+    discount_value, create_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kpap.basis.model.ProDcfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from pro_dcf
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart>=0 and limitEnd>=1" >
+      limit ${limitEnd} offset ${limitStart}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from pro_dcf
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from pro_dcf
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kpap.basis.model.ProDcfExample" >
+    delete from pro_dcf
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kpap.basis.model.ProDcf" >
+    insert into pro_dcf (id, pro_code, year, 
+      income, profit_rate, profit, 
+      discount_rate, series_year, discount_factor, 
+      discount_value, create_date)
+    values (#{id,jdbcType=BIGINT}, #{proCode,jdbcType=VARCHAR}, #{year,jdbcType=CHAR}, 
+      #{income,jdbcType=NUMERIC}, #{profitRate,jdbcType=NUMERIC}, #{profit,jdbcType=NUMERIC}, 
+      #{discountRate,jdbcType=NUMERIC}, #{seriesYear,jdbcType=NUMERIC}, #{discountFactor,jdbcType=NUMERIC}, 
+      #{discountValue,jdbcType=NUMERIC}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kpap.basis.model.ProDcf" >
+    insert into pro_dcf
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="proCode != null" >
+        pro_code,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="income != null" >
+        income,
+      </if>
+      <if test="profitRate != null" >
+        profit_rate,
+      </if>
+      <if test="profit != null" >
+        profit,
+      </if>
+      <if test="discountRate != null" >
+        discount_rate,
+      </if>
+      <if test="seriesYear != null" >
+        series_year,
+      </if>
+      <if test="discountFactor != null" >
+        discount_factor,
+      </if>
+      <if test="discountValue != null" >
+        discount_value,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="proCode != null" >
+        #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=CHAR},
+      </if>
+      <if test="income != null" >
+        #{income,jdbcType=NUMERIC},
+      </if>
+      <if test="profitRate != null" >
+        #{profitRate,jdbcType=NUMERIC},
+      </if>
+      <if test="profit != null" >
+        #{profit,jdbcType=NUMERIC},
+      </if>
+      <if test="discountRate != null" >
+        #{discountRate,jdbcType=NUMERIC},
+      </if>
+      <if test="seriesYear != null" >
+        #{seriesYear,jdbcType=NUMERIC},
+      </if>
+      <if test="discountFactor != null" >
+        #{discountFactor,jdbcType=NUMERIC},
+      </if>
+      <if test="discountValue != null" >
+        #{discountValue,jdbcType=NUMERIC},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kpap.basis.model.ProDcfExample" resultType="java.lang.Integer" >
+    select count(*) from pro_dcf
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pro_dcf
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.proCode != null" >
+        pro_code = #{record.proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.year != null" >
+        year = #{record.year,jdbcType=CHAR},
+      </if>
+      <if test="record.income != null" >
+        income = #{record.income,jdbcType=NUMERIC},
+      </if>
+      <if test="record.profitRate != null" >
+        profit_rate = #{record.profitRate,jdbcType=NUMERIC},
+      </if>
+      <if test="record.profit != null" >
+        profit = #{record.profit,jdbcType=NUMERIC},
+      </if>
+      <if test="record.discountRate != null" >
+        discount_rate = #{record.discountRate,jdbcType=NUMERIC},
+      </if>
+      <if test="record.seriesYear != null" >
+        series_year = #{record.seriesYear,jdbcType=NUMERIC},
+      </if>
+      <if test="record.discountFactor != null" >
+        discount_factor = #{record.discountFactor,jdbcType=NUMERIC},
+      </if>
+      <if test="record.discountValue != null" >
+        discount_value = #{record.discountValue,jdbcType=NUMERIC},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pro_dcf
+    set id = #{record.id,jdbcType=BIGINT},
+      pro_code = #{record.proCode,jdbcType=VARCHAR},
+      year = #{record.year,jdbcType=CHAR},
+      income = #{record.income,jdbcType=NUMERIC},
+      profit_rate = #{record.profitRate,jdbcType=NUMERIC},
+      profit = #{record.profit,jdbcType=NUMERIC},
+      discount_rate = #{record.discountRate,jdbcType=NUMERIC},
+      series_year = #{record.seriesYear,jdbcType=NUMERIC},
+      discount_factor = #{record.discountFactor,jdbcType=NUMERIC},
+      discount_value = #{record.discountValue,jdbcType=NUMERIC},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kpap.basis.model.ProDcf" >
+    update pro_dcf
+    <set >
+      <if test="proCode != null" >
+        pro_code = #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=CHAR},
+      </if>
+      <if test="income != null" >
+        income = #{income,jdbcType=NUMERIC},
+      </if>
+      <if test="profitRate != null" >
+        profit_rate = #{profitRate,jdbcType=NUMERIC},
+      </if>
+      <if test="profit != null" >
+        profit = #{profit,jdbcType=NUMERIC},
+      </if>
+      <if test="discountRate != null" >
+        discount_rate = #{discountRate,jdbcType=NUMERIC},
+      </if>
+      <if test="seriesYear != null" >
+        series_year = #{seriesYear,jdbcType=NUMERIC},
+      </if>
+      <if test="discountFactor != null" >
+        discount_factor = #{discountFactor,jdbcType=NUMERIC},
+      </if>
+      <if test="discountValue != null" >
+        discount_value = #{discountValue,jdbcType=NUMERIC},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kpap.basis.model.ProDcf" >
+    update pro_dcf
+    set pro_code = #{proCode,jdbcType=VARCHAR},
+      year = #{year,jdbcType=CHAR},
+      income = #{income,jdbcType=NUMERIC},
+      profit_rate = #{profitRate,jdbcType=NUMERIC},
+      profit = #{profit,jdbcType=NUMERIC},
+      discount_rate = #{discountRate,jdbcType=NUMERIC},
+      series_year = #{seriesYear,jdbcType=NUMERIC},
+      discount_factor = #{discountFactor,jdbcType=NUMERIC},
+      discount_value = #{discountValue,jdbcType=NUMERIC},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

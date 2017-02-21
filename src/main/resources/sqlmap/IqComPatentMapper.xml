@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kpap.basis.dao.IqComPatentMapper" >
+  <resultMap id="BaseResultMap" type="com.kpap.basis.model.IqComPatent" >
+    <id column="iq_com_id" property="iqComId" jdbcType="BIGINT" />
+    <result column="icln" property="icln" jdbcType="DOUBLE" />
+    <result column="cigc" property="cigc" jdbcType="DOUBLE" />
+    <result column="dcln" property="dcln" jdbcType="DOUBLE" />
+    <result column="clt_a" property="cltA" jdbcType="DOUBLE" />
+    <result column="ipcsc" property="ipcsc" jdbcType="DOUBLE" />
+    <result column="rmn" property="rmn" jdbcType="DOUBLE" />
+    <result column="cipc" property="cipc" jdbcType="DOUBLE" />
+    <result column="inco" property="inco" jdbcType="DOUBLE" />
+    <result column="patt_a" property="pattA" jdbcType="DOUBLE" />
+    <result column="plic" property="plic" jdbcType="DOUBLE" />
+    <result column="pcc" property="pcc" jdbcType="DOUBLE" />
+    <result column="ppc" property="ppc" jdbcType="DOUBLE" />
+    <result column="tcc" property="tcc" jdbcType="DOUBLE" />
+    <result column="despage" property="despage" jdbcType="DOUBLE" />
+    <result column="drawpage" property="drawpage" jdbcType="DOUBLE" />
+    <result column="sfcl" property="sfcl" jdbcType="DOUBLE" />
+    <result column="fajp" property="fajp" jdbcType="DOUBLE" />
+    <result column="faus" property="faus" jdbcType="DOUBLE" />
+    <result column="faot" property="faot" jdbcType="DOUBLE" />
+    <result column="clt_b" property="cltB" jdbcType="DOUBLE" />
+    <result column="clt_c" property="cltC" jdbcType="DOUBLE" />
+    <result column="patt_b" property="pattB" jdbcType="DOUBLE" />
+    <result column="pro_code" property="proCode" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    iq_com_id, icln, cigc, dcln, clt_a, ipcsc, rmn, cipc, inco, patt_a, plic, pcc, ppc, 
+    tcc, despage, drawpage, sfcl, fajp, faus, faot, clt_b, clt_c, patt_b, pro_code, name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kpap.basis.model.IqComPatentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from iq_com_patent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart>=0 and limitEnd>=1" >
+      limit ${limitEnd} offset ${limitStart}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from iq_com_patent
+    where iq_com_id = #{iqComId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from iq_com_patent
+    where iq_com_id = #{iqComId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kpap.basis.model.IqComPatentExample" >
+    delete from iq_com_patent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kpap.basis.model.IqComPatent" >
+    insert into iq_com_patent (iq_com_id, icln, cigc, 
+      dcln, clt_a, ipcsc, rmn, 
+      cipc, inco, patt_a, plic, 
+      pcc, ppc, tcc, despage, 
+      drawpage, sfcl, fajp, 
+      faus, faot, clt_b, clt_c, 
+      patt_b, pro_code, name
+      )
+    values (#{iqComId,jdbcType=BIGINT}, #{icln,jdbcType=DOUBLE}, #{cigc,jdbcType=DOUBLE}, 
+      #{dcln,jdbcType=DOUBLE}, #{cltA,jdbcType=DOUBLE}, #{ipcsc,jdbcType=DOUBLE}, #{rmn,jdbcType=DOUBLE}, 
+      #{cipc,jdbcType=DOUBLE}, #{inco,jdbcType=DOUBLE}, #{pattA,jdbcType=DOUBLE}, #{plic,jdbcType=DOUBLE}, 
+      #{pcc,jdbcType=DOUBLE}, #{ppc,jdbcType=DOUBLE}, #{tcc,jdbcType=DOUBLE}, #{despage,jdbcType=DOUBLE}, 
+      #{drawpage,jdbcType=DOUBLE}, #{sfcl,jdbcType=DOUBLE}, #{fajp,jdbcType=DOUBLE}, 
+      #{faus,jdbcType=DOUBLE}, #{faot,jdbcType=DOUBLE}, #{cltB,jdbcType=DOUBLE}, #{cltC,jdbcType=DOUBLE}, 
+      #{pattB,jdbcType=DOUBLE}, #{proCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kpap.basis.model.IqComPatent" >
+    insert into iq_com_patent
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="iqComId != null" >
+        iq_com_id,
+      </if>
+      <if test="icln != null" >
+        icln,
+      </if>
+      <if test="cigc != null" >
+        cigc,
+      </if>
+      <if test="dcln != null" >
+        dcln,
+      </if>
+      <if test="cltA != null" >
+        clt_a,
+      </if>
+      <if test="ipcsc != null" >
+        ipcsc,
+      </if>
+      <if test="rmn != null" >
+        rmn,
+      </if>
+      <if test="cipc != null" >
+        cipc,
+      </if>
+      <if test="inco != null" >
+        inco,
+      </if>
+      <if test="pattA != null" >
+        patt_a,
+      </if>
+      <if test="plic != null" >
+        plic,
+      </if>
+      <if test="pcc != null" >
+        pcc,
+      </if>
+      <if test="ppc != null" >
+        ppc,
+      </if>
+      <if test="tcc != null" >
+        tcc,
+      </if>
+      <if test="despage != null" >
+        despage,
+      </if>
+      <if test="drawpage != null" >
+        drawpage,
+      </if>
+      <if test="sfcl != null" >
+        sfcl,
+      </if>
+      <if test="fajp != null" >
+        fajp,
+      </if>
+      <if test="faus != null" >
+        faus,
+      </if>
+      <if test="faot != null" >
+        faot,
+      </if>
+      <if test="cltB != null" >
+        clt_b,
+      </if>
+      <if test="cltC != null" >
+        clt_c,
+      </if>
+      <if test="pattB != null" >
+        patt_b,
+      </if>
+      <if test="proCode != null" >
+        pro_code,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="iqComId != null" >
+        #{iqComId,jdbcType=BIGINT},
+      </if>
+      <if test="icln != null" >
+        #{icln,jdbcType=DOUBLE},
+      </if>
+      <if test="cigc != null" >
+        #{cigc,jdbcType=DOUBLE},
+      </if>
+      <if test="dcln != null" >
+        #{dcln,jdbcType=DOUBLE},
+      </if>
+      <if test="cltA != null" >
+        #{cltA,jdbcType=DOUBLE},
+      </if>
+      <if test="ipcsc != null" >
+        #{ipcsc,jdbcType=DOUBLE},
+      </if>
+      <if test="rmn != null" >
+        #{rmn,jdbcType=DOUBLE},
+      </if>
+      <if test="cipc != null" >
+        #{cipc,jdbcType=DOUBLE},
+      </if>
+      <if test="inco != null" >
+        #{inco,jdbcType=DOUBLE},
+      </if>
+      <if test="pattA != null" >
+        #{pattA,jdbcType=DOUBLE},
+      </if>
+      <if test="plic != null" >
+        #{plic,jdbcType=DOUBLE},
+      </if>
+      <if test="pcc != null" >
+        #{pcc,jdbcType=DOUBLE},
+      </if>
+      <if test="ppc != null" >
+        #{ppc,jdbcType=DOUBLE},
+      </if>
+      <if test="tcc != null" >
+        #{tcc,jdbcType=DOUBLE},
+      </if>
+      <if test="despage != null" >
+        #{despage,jdbcType=DOUBLE},
+      </if>
+      <if test="drawpage != null" >
+        #{drawpage,jdbcType=DOUBLE},
+      </if>
+      <if test="sfcl != null" >
+        #{sfcl,jdbcType=DOUBLE},
+      </if>
+      <if test="fajp != null" >
+        #{fajp,jdbcType=DOUBLE},
+      </if>
+      <if test="faus != null" >
+        #{faus,jdbcType=DOUBLE},
+      </if>
+      <if test="faot != null" >
+        #{faot,jdbcType=DOUBLE},
+      </if>
+      <if test="cltB != null" >
+        #{cltB,jdbcType=DOUBLE},
+      </if>
+      <if test="cltC != null" >
+        #{cltC,jdbcType=DOUBLE},
+      </if>
+      <if test="pattB != null" >
+        #{pattB,jdbcType=DOUBLE},
+      </if>
+      <if test="proCode != null" >
+        #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kpap.basis.model.IqComPatentExample" resultType="java.lang.Integer" >
+    select count(*) from iq_com_patent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update iq_com_patent
+    <set >
+      <if test="record.iqComId != null" >
+        iq_com_id = #{record.iqComId,jdbcType=BIGINT},
+      </if>
+      <if test="record.icln != null" >
+        icln = #{record.icln,jdbcType=DOUBLE},
+      </if>
+      <if test="record.cigc != null" >
+        cigc = #{record.cigc,jdbcType=DOUBLE},
+      </if>
+      <if test="record.dcln != null" >
+        dcln = #{record.dcln,jdbcType=DOUBLE},
+      </if>
+      <if test="record.cltA != null" >
+        clt_a = #{record.cltA,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ipcsc != null" >
+        ipcsc = #{record.ipcsc,jdbcType=DOUBLE},
+      </if>
+      <if test="record.rmn != null" >
+        rmn = #{record.rmn,jdbcType=DOUBLE},
+      </if>
+      <if test="record.cipc != null" >
+        cipc = #{record.cipc,jdbcType=DOUBLE},
+      </if>
+      <if test="record.inco != null" >
+        inco = #{record.inco,jdbcType=DOUBLE},
+      </if>
+      <if test="record.pattA != null" >
+        patt_a = #{record.pattA,jdbcType=DOUBLE},
+      </if>
+      <if test="record.plic != null" >
+        plic = #{record.plic,jdbcType=DOUBLE},
+      </if>
+      <if test="record.pcc != null" >
+        pcc = #{record.pcc,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ppc != null" >
+        ppc = #{record.ppc,jdbcType=DOUBLE},
+      </if>
+      <if test="record.tcc != null" >
+        tcc = #{record.tcc,jdbcType=DOUBLE},
+      </if>
+      <if test="record.despage != null" >
+        despage = #{record.despage,jdbcType=DOUBLE},
+      </if>
+      <if test="record.drawpage != null" >
+        drawpage = #{record.drawpage,jdbcType=DOUBLE},
+      </if>
+      <if test="record.sfcl != null" >
+        sfcl = #{record.sfcl,jdbcType=DOUBLE},
+      </if>
+      <if test="record.fajp != null" >
+        fajp = #{record.fajp,jdbcType=DOUBLE},
+      </if>
+      <if test="record.faus != null" >
+        faus = #{record.faus,jdbcType=DOUBLE},
+      </if>
+      <if test="record.faot != null" >
+        faot = #{record.faot,jdbcType=DOUBLE},
+      </if>
+      <if test="record.cltB != null" >
+        clt_b = #{record.cltB,jdbcType=DOUBLE},
+      </if>
+      <if test="record.cltC != null" >
+        clt_c = #{record.cltC,jdbcType=DOUBLE},
+      </if>
+      <if test="record.pattB != null" >
+        patt_b = #{record.pattB,jdbcType=DOUBLE},
+      </if>
+      <if test="record.proCode != null" >
+        pro_code = #{record.proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update iq_com_patent
+    set iq_com_id = #{record.iqComId,jdbcType=BIGINT},
+      icln = #{record.icln,jdbcType=DOUBLE},
+      cigc = #{record.cigc,jdbcType=DOUBLE},
+      dcln = #{record.dcln,jdbcType=DOUBLE},
+      clt_a = #{record.cltA,jdbcType=DOUBLE},
+      ipcsc = #{record.ipcsc,jdbcType=DOUBLE},
+      rmn = #{record.rmn,jdbcType=DOUBLE},
+      cipc = #{record.cipc,jdbcType=DOUBLE},
+      inco = #{record.inco,jdbcType=DOUBLE},
+      patt_a = #{record.pattA,jdbcType=DOUBLE},
+      plic = #{record.plic,jdbcType=DOUBLE},
+      pcc = #{record.pcc,jdbcType=DOUBLE},
+      ppc = #{record.ppc,jdbcType=DOUBLE},
+      tcc = #{record.tcc,jdbcType=DOUBLE},
+      despage = #{record.despage,jdbcType=DOUBLE},
+      drawpage = #{record.drawpage,jdbcType=DOUBLE},
+      sfcl = #{record.sfcl,jdbcType=DOUBLE},
+      fajp = #{record.fajp,jdbcType=DOUBLE},
+      faus = #{record.faus,jdbcType=DOUBLE},
+      faot = #{record.faot,jdbcType=DOUBLE},
+      clt_b = #{record.cltB,jdbcType=DOUBLE},
+      clt_c = #{record.cltC,jdbcType=DOUBLE},
+      patt_b = #{record.pattB,jdbcType=DOUBLE},
+      pro_code = #{record.proCode,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kpap.basis.model.IqComPatent" >
+    update iq_com_patent
+    <set >
+      <if test="icln != null" >
+        icln = #{icln,jdbcType=DOUBLE},
+      </if>
+      <if test="cigc != null" >
+        cigc = #{cigc,jdbcType=DOUBLE},
+      </if>
+      <if test="dcln != null" >
+        dcln = #{dcln,jdbcType=DOUBLE},
+      </if>
+      <if test="cltA != null" >
+        clt_a = #{cltA,jdbcType=DOUBLE},
+      </if>
+      <if test="ipcsc != null" >
+        ipcsc = #{ipcsc,jdbcType=DOUBLE},
+      </if>
+      <if test="rmn != null" >
+        rmn = #{rmn,jdbcType=DOUBLE},
+      </if>
+      <if test="cipc != null" >
+        cipc = #{cipc,jdbcType=DOUBLE},
+      </if>
+      <if test="inco != null" >
+        inco = #{inco,jdbcType=DOUBLE},
+      </if>
+      <if test="pattA != null" >
+        patt_a = #{pattA,jdbcType=DOUBLE},
+      </if>
+      <if test="plic != null" >
+        plic = #{plic,jdbcType=DOUBLE},
+      </if>
+      <if test="pcc != null" >
+        pcc = #{pcc,jdbcType=DOUBLE},
+      </if>
+      <if test="ppc != null" >
+        ppc = #{ppc,jdbcType=DOUBLE},
+      </if>
+      <if test="tcc != null" >
+        tcc = #{tcc,jdbcType=DOUBLE},
+      </if>
+      <if test="despage != null" >
+        despage = #{despage,jdbcType=DOUBLE},
+      </if>
+      <if test="drawpage != null" >
+        drawpage = #{drawpage,jdbcType=DOUBLE},
+      </if>
+      <if test="sfcl != null" >
+        sfcl = #{sfcl,jdbcType=DOUBLE},
+      </if>
+      <if test="fajp != null" >
+        fajp = #{fajp,jdbcType=DOUBLE},
+      </if>
+      <if test="faus != null" >
+        faus = #{faus,jdbcType=DOUBLE},
+      </if>
+      <if test="faot != null" >
+        faot = #{faot,jdbcType=DOUBLE},
+      </if>
+      <if test="cltB != null" >
+        clt_b = #{cltB,jdbcType=DOUBLE},
+      </if>
+      <if test="cltC != null" >
+        clt_c = #{cltC,jdbcType=DOUBLE},
+      </if>
+      <if test="pattB != null" >
+        patt_b = #{pattB,jdbcType=DOUBLE},
+      </if>
+      <if test="proCode != null" >
+        pro_code = #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where iq_com_id = #{iqComId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kpap.basis.model.IqComPatent" >
+    update iq_com_patent
+    set icln = #{icln,jdbcType=DOUBLE},
+      cigc = #{cigc,jdbcType=DOUBLE},
+      dcln = #{dcln,jdbcType=DOUBLE},
+      clt_a = #{cltA,jdbcType=DOUBLE},
+      ipcsc = #{ipcsc,jdbcType=DOUBLE},
+      rmn = #{rmn,jdbcType=DOUBLE},
+      cipc = #{cipc,jdbcType=DOUBLE},
+      inco = #{inco,jdbcType=DOUBLE},
+      patt_a = #{pattA,jdbcType=DOUBLE},
+      plic = #{plic,jdbcType=DOUBLE},
+      pcc = #{pcc,jdbcType=DOUBLE},
+      ppc = #{ppc,jdbcType=DOUBLE},
+      tcc = #{tcc,jdbcType=DOUBLE},
+      despage = #{despage,jdbcType=DOUBLE},
+      drawpage = #{drawpage,jdbcType=DOUBLE},
+      sfcl = #{sfcl,jdbcType=DOUBLE},
+      fajp = #{fajp,jdbcType=DOUBLE},
+      faus = #{faus,jdbcType=DOUBLE},
+      faot = #{faot,jdbcType=DOUBLE},
+      clt_b = #{cltB,jdbcType=DOUBLE},
+      clt_c = #{cltC,jdbcType=DOUBLE},
+      patt_b = #{pattB,jdbcType=DOUBLE},
+      pro_code = #{proCode,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR}
+    where iq_com_id = #{iqComId,jdbcType=BIGINT}
+  </update>
+</mapper>

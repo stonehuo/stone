@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kpap.basis.dao.ComInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.kpap.basis.model.ComInfo" >
+    <id column="pro_code" property="proCode" jdbcType="VARCHAR" />
+    <result column="json_balance" property="jsonBalance" jdbcType="VARCHAR" />
+    <result column="json_ profit" property="jsonProfit" jdbcType="VARCHAR" />
+    <result column="json_ratios" property="jsonRatios" jdbcType="VARCHAR" />
+    <result column="json_ratios_growth_ave" property="jsonRatiosGrowthAve" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pro_code, json_balance, "json_ profit", json_ratios, json_ratios_growth_ave
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kpap.basis.model.ComInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from com_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart>=0 and limitEnd>=1" >
+      limit ${limitEnd} offset ${limitStart}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from com_info
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from com_info
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kpap.basis.model.ComInfoExample" >
+    delete from com_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kpap.basis.model.ComInfo" >
+    insert into com_info (pro_code, json_balance, "json_ profit", 
+      json_ratios, json_ratios_growth_ave)
+    values (#{proCode,jdbcType=VARCHAR}, #{jsonBalance,jdbcType=VARCHAR}, #{jsonProfit,jdbcType=VARCHAR}, 
+      #{jsonRatios,jdbcType=VARCHAR}, #{jsonRatiosGrowthAve,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kpap.basis.model.ComInfo" >
+    insert into com_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proCode != null" >
+        pro_code,
+      </if>
+      <if test="jsonBalance != null" >
+        json_balance,
+      </if>
+      <if test="jsonProfit != null" >
+        "json_ profit",
+      </if>
+      <if test="jsonRatios != null" >
+        json_ratios,
+      </if>
+      <if test="jsonRatiosGrowthAve != null" >
+        json_ratios_growth_ave,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proCode != null" >
+        #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="jsonBalance != null" >
+        #{jsonBalance,jdbcType=VARCHAR},
+      </if>
+      <if test="jsonProfit != null" >
+        #{jsonProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="jsonRatios != null" >
+        #{jsonRatios,jdbcType=VARCHAR},
+      </if>
+      <if test="jsonRatiosGrowthAve != null" >
+        #{jsonRatiosGrowthAve,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kpap.basis.model.ComInfoExample" resultType="java.lang.Integer" >
+    select count(*) from com_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update com_info
+    <set >
+      <if test="record.proCode != null" >
+        pro_code = #{record.proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jsonBalance != null" >
+        json_balance = #{record.jsonBalance,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jsonProfit != null" >
+        "json_ profit" = #{record.jsonProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jsonRatios != null" >
+        json_ratios = #{record.jsonRatios,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jsonRatiosGrowthAve != null" >
+        json_ratios_growth_ave = #{record.jsonRatiosGrowthAve,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update com_info
+    set pro_code = #{record.proCode,jdbcType=VARCHAR},
+      json_balance = #{record.jsonBalance,jdbcType=VARCHAR},
+      "json_ profit" = #{record.jsonProfit,jdbcType=VARCHAR},
+      json_ratios = #{record.jsonRatios,jdbcType=VARCHAR},
+      json_ratios_growth_ave = #{record.jsonRatiosGrowthAve,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kpap.basis.model.ComInfo" >
+    update com_info
+    <set >
+      <if test="jsonBalance != null" >
+        json_balance = #{jsonBalance,jdbcType=VARCHAR},
+      </if>
+      <if test="jsonProfit != null" >
+        "json_ profit" = #{jsonProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="jsonRatios != null" >
+        json_ratios = #{jsonRatios,jdbcType=VARCHAR},
+      </if>
+      <if test="jsonRatiosGrowthAve != null" >
+        json_ratios_growth_ave = #{jsonRatiosGrowthAve,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kpap.basis.model.ComInfo" >
+    update com_info
+    set json_balance = #{jsonBalance,jdbcType=VARCHAR},
+      "json_ profit" = #{jsonProfit,jdbcType=VARCHAR},
+      json_ratios = #{jsonRatios,jdbcType=VARCHAR},
+      json_ratios_growth_ave = #{jsonRatiosGrowthAve,jdbcType=VARCHAR}
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

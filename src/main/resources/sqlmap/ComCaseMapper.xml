@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kpap.basis.dao.ComCaseMapper" >
+  <resultMap id="BaseResultMap" type="com.kpap.basis.model.ComCase" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="patt" property="patt" jdbcType="VARCHAR" />
+    <result column="ti" property="ti" jdbcType="VARCHAR" />
+    <result column="pn" property="pn" jdbcType="VARCHAR" />
+    <result column="patentee" property="patentee" jdbcType="VARCHAR" />
+    <result column="ad" property="ad" jdbcType="DATE" />
+    <result column="market" property="market" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="NUMERIC" />
+    <result column="trans_date" property="transDate" jdbcType="DATE" />
+    <result column="pro_code" property="proCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, patt, ti, pn, patentee, ad, market, price, trans_date, pro_code
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kpap.basis.model.ComCaseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from com_case
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart>=0 and limitEnd>=1" >
+      limit ${limitEnd} offset ${limitStart}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from com_case
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from com_case
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kpap.basis.model.ComCaseExample" >
+    delete from com_case
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kpap.basis.model.ComCase" >
+    insert into com_case (id, name, patt, 
+      ti, pn, patentee, ad, 
+      market, price, trans_date, 
+      pro_code)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{patt,jdbcType=VARCHAR}, 
+      #{ti,jdbcType=VARCHAR}, #{pn,jdbcType=VARCHAR}, #{patentee,jdbcType=VARCHAR}, #{ad,jdbcType=DATE}, 
+      #{market,jdbcType=VARCHAR}, #{price,jdbcType=NUMERIC}, #{transDate,jdbcType=DATE}, 
+      #{proCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kpap.basis.model.ComCase" >
+    insert into com_case
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="patt != null" >
+        patt,
+      </if>
+      <if test="ti != null" >
+        ti,
+      </if>
+      <if test="pn != null" >
+        pn,
+      </if>
+      <if test="patentee != null" >
+        patentee,
+      </if>
+      <if test="ad != null" >
+        ad,
+      </if>
+      <if test="market != null" >
+        market,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="transDate != null" >
+        trans_date,
+      </if>
+      <if test="proCode != null" >
+        pro_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="patt != null" >
+        #{patt,jdbcType=VARCHAR},
+      </if>
+      <if test="ti != null" >
+        #{ti,jdbcType=VARCHAR},
+      </if>
+      <if test="pn != null" >
+        #{pn,jdbcType=VARCHAR},
+      </if>
+      <if test="patentee != null" >
+        #{patentee,jdbcType=VARCHAR},
+      </if>
+      <if test="ad != null" >
+        #{ad,jdbcType=DATE},
+      </if>
+      <if test="market != null" >
+        #{market,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="transDate != null" >
+        #{transDate,jdbcType=DATE},
+      </if>
+      <if test="proCode != null" >
+        #{proCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kpap.basis.model.ComCaseExample" resultType="java.lang.Integer" >
+    select count(*) from com_case
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update com_case
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patt != null" >
+        patt = #{record.patt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ti != null" >
+        ti = #{record.ti,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pn != null" >
+        pn = #{record.pn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patentee != null" >
+        patentee = #{record.patentee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ad != null" >
+        ad = #{record.ad,jdbcType=DATE},
+      </if>
+      <if test="record.market != null" >
+        market = #{record.market,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=NUMERIC},
+      </if>
+      <if test="record.transDate != null" >
+        trans_date = #{record.transDate,jdbcType=DATE},
+      </if>
+      <if test="record.proCode != null" >
+        pro_code = #{record.proCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update com_case
+    set id = #{record.id,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      patt = #{record.patt,jdbcType=VARCHAR},
+      ti = #{record.ti,jdbcType=VARCHAR},
+      pn = #{record.pn,jdbcType=VARCHAR},
+      patentee = #{record.patentee,jdbcType=VARCHAR},
+      ad = #{record.ad,jdbcType=DATE},
+      market = #{record.market,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=NUMERIC},
+      trans_date = #{record.transDate,jdbcType=DATE},
+      pro_code = #{record.proCode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kpap.basis.model.ComCase" >
+    update com_case
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="patt != null" >
+        patt = #{patt,jdbcType=VARCHAR},
+      </if>
+      <if test="ti != null" >
+        ti = #{ti,jdbcType=VARCHAR},
+      </if>
+      <if test="pn != null" >
+        pn = #{pn,jdbcType=VARCHAR},
+      </if>
+      <if test="patentee != null" >
+        patentee = #{patentee,jdbcType=VARCHAR},
+      </if>
+      <if test="ad != null" >
+        ad = #{ad,jdbcType=DATE},
+      </if>
+      <if test="market != null" >
+        market = #{market,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="transDate != null" >
+        trans_date = #{transDate,jdbcType=DATE},
+      </if>
+      <if test="proCode != null" >
+        pro_code = #{proCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kpap.basis.model.ComCase" >
+    update com_case
+    set name = #{name,jdbcType=VARCHAR},
+      patt = #{patt,jdbcType=VARCHAR},
+      ti = #{ti,jdbcType=VARCHAR},
+      pn = #{pn,jdbcType=VARCHAR},
+      patentee = #{patentee,jdbcType=VARCHAR},
+      ad = #{ad,jdbcType=DATE},
+      market = #{market,jdbcType=VARCHAR},
+      price = #{price,jdbcType=NUMERIC},
+      trans_date = #{transDate,jdbcType=DATE},
+      pro_code = #{proCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kpap.basis.dao.ComDevCostMapper" >
+  <resultMap id="BaseResultMap" type="com.kpap.basis.model.ComDevCost" >
+    <id column="pro_code" property="proCode" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="DATE" />
+    <result column="end_date" property="endDate" jdbcType="DATE" />
+    <result column="cycle" property="cycle" jdbcType="NUMERIC" />
+    <result column="e23" property="e23" jdbcType="NUMERIC" />
+    <result column="f23" property="f23" jdbcType="NUMERIC" />
+    <result column="c25" property="c25" jdbcType="NUMERIC" />
+    <result column="c28" property="c28" jdbcType="NUMERIC" />
+    <result column="c29" property="c29" jdbcType="NUMERIC" />
+    <result column="c30" property="c30" jdbcType="NUMERIC" />
+    <result column="c31" property="c31" jdbcType="NUMERIC" />
+    <result column="c32" property="c32" jdbcType="NUMERIC" />
+    <result column="c33" property="c33" jdbcType="NUMERIC" />
+    <result column="c34" property="c34" jdbcType="NUMERIC" />
+    <result column="c35" property="c35" jdbcType="NUMERIC" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pro_code, start_date, end_date, cycle, e23, f23, c25, c28, c29, c30, c31, c32, c33, 
+    c34, c35
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kpap.basis.model.ComDevCostExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from com_dev_cost
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart>=0 and limitEnd>=1" >
+      limit ${limitEnd} offset ${limitStart}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from com_dev_cost
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from com_dev_cost
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kpap.basis.model.ComDevCostExample" >
+    delete from com_dev_cost
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kpap.basis.model.ComDevCost" >
+    insert into com_dev_cost (pro_code, start_date, end_date, 
+      cycle, e23, f23, c25, 
+      c28, c29, c30, c31, 
+      c32, c33, c34, c35
+      )
+    values (#{proCode,jdbcType=VARCHAR}, #{startDate,jdbcType=DATE}, #{endDate,jdbcType=DATE}, 
+      #{cycle,jdbcType=NUMERIC}, #{e23,jdbcType=NUMERIC}, #{f23,jdbcType=NUMERIC}, #{c25,jdbcType=NUMERIC}, 
+      #{c28,jdbcType=NUMERIC}, #{c29,jdbcType=NUMERIC}, #{c30,jdbcType=NUMERIC}, #{c31,jdbcType=NUMERIC}, 
+      #{c32,jdbcType=NUMERIC}, #{c33,jdbcType=NUMERIC}, #{c34,jdbcType=NUMERIC}, #{c35,jdbcType=NUMERIC}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kpap.basis.model.ComDevCost" >
+    insert into com_dev_cost
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proCode != null" >
+        pro_code,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="cycle != null" >
+        cycle,
+      </if>
+      <if test="e23 != null" >
+        e23,
+      </if>
+      <if test="f23 != null" >
+        f23,
+      </if>
+      <if test="c25 != null" >
+        c25,
+      </if>
+      <if test="c28 != null" >
+        c28,
+      </if>
+      <if test="c29 != null" >
+        c29,
+      </if>
+      <if test="c30 != null" >
+        c30,
+      </if>
+      <if test="c31 != null" >
+        c31,
+      </if>
+      <if test="c32 != null" >
+        c32,
+      </if>
+      <if test="c33 != null" >
+        c33,
+      </if>
+      <if test="c34 != null" >
+        c34,
+      </if>
+      <if test="c35 != null" >
+        c35,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proCode != null" >
+        #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="cycle != null" >
+        #{cycle,jdbcType=NUMERIC},
+      </if>
+      <if test="e23 != null" >
+        #{e23,jdbcType=NUMERIC},
+      </if>
+      <if test="f23 != null" >
+        #{f23,jdbcType=NUMERIC},
+      </if>
+      <if test="c25 != null" >
+        #{c25,jdbcType=NUMERIC},
+      </if>
+      <if test="c28 != null" >
+        #{c28,jdbcType=NUMERIC},
+      </if>
+      <if test="c29 != null" >
+        #{c29,jdbcType=NUMERIC},
+      </if>
+      <if test="c30 != null" >
+        #{c30,jdbcType=NUMERIC},
+      </if>
+      <if test="c31 != null" >
+        #{c31,jdbcType=NUMERIC},
+      </if>
+      <if test="c32 != null" >
+        #{c32,jdbcType=NUMERIC},
+      </if>
+      <if test="c33 != null" >
+        #{c33,jdbcType=NUMERIC},
+      </if>
+      <if test="c34 != null" >
+        #{c34,jdbcType=NUMERIC},
+      </if>
+      <if test="c35 != null" >
+        #{c35,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kpap.basis.model.ComDevCostExample" resultType="java.lang.Integer" >
+    select count(*) from com_dev_cost
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update com_dev_cost
+    <set >
+      <if test="record.proCode != null" >
+        pro_code = #{record.proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startDate != null" >
+        start_date = #{record.startDate,jdbcType=DATE},
+      </if>
+      <if test="record.endDate != null" >
+        end_date = #{record.endDate,jdbcType=DATE},
+      </if>
+      <if test="record.cycle != null" >
+        cycle = #{record.cycle,jdbcType=NUMERIC},
+      </if>
+      <if test="record.e23 != null" >
+        e23 = #{record.e23,jdbcType=NUMERIC},
+      </if>
+      <if test="record.f23 != null" >
+        f23 = #{record.f23,jdbcType=NUMERIC},
+      </if>
+      <if test="record.c25 != null" >
+        c25 = #{record.c25,jdbcType=NUMERIC},
+      </if>
+      <if test="record.c28 != null" >
+        c28 = #{record.c28,jdbcType=NUMERIC},
+      </if>
+      <if test="record.c29 != null" >
+        c29 = #{record.c29,jdbcType=NUMERIC},
+      </if>
+      <if test="record.c30 != null" >
+        c30 = #{record.c30,jdbcType=NUMERIC},
+      </if>
+      <if test="record.c31 != null" >
+        c31 = #{record.c31,jdbcType=NUMERIC},
+      </if>
+      <if test="record.c32 != null" >
+        c32 = #{record.c32,jdbcType=NUMERIC},
+      </if>
+      <if test="record.c33 != null" >
+        c33 = #{record.c33,jdbcType=NUMERIC},
+      </if>
+      <if test="record.c34 != null" >
+        c34 = #{record.c34,jdbcType=NUMERIC},
+      </if>
+      <if test="record.c35 != null" >
+        c35 = #{record.c35,jdbcType=NUMERIC},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update com_dev_cost
+    set pro_code = #{record.proCode,jdbcType=VARCHAR},
+      start_date = #{record.startDate,jdbcType=DATE},
+      end_date = #{record.endDate,jdbcType=DATE},
+      cycle = #{record.cycle,jdbcType=NUMERIC},
+      e23 = #{record.e23,jdbcType=NUMERIC},
+      f23 = #{record.f23,jdbcType=NUMERIC},
+      c25 = #{record.c25,jdbcType=NUMERIC},
+      c28 = #{record.c28,jdbcType=NUMERIC},
+      c29 = #{record.c29,jdbcType=NUMERIC},
+      c30 = #{record.c30,jdbcType=NUMERIC},
+      c31 = #{record.c31,jdbcType=NUMERIC},
+      c32 = #{record.c32,jdbcType=NUMERIC},
+      c33 = #{record.c33,jdbcType=NUMERIC},
+      c34 = #{record.c34,jdbcType=NUMERIC},
+      c35 = #{record.c35,jdbcType=NUMERIC}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kpap.basis.model.ComDevCost" >
+    update com_dev_cost
+    <set >
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="cycle != null" >
+        cycle = #{cycle,jdbcType=NUMERIC},
+      </if>
+      <if test="e23 != null" >
+        e23 = #{e23,jdbcType=NUMERIC},
+      </if>
+      <if test="f23 != null" >
+        f23 = #{f23,jdbcType=NUMERIC},
+      </if>
+      <if test="c25 != null" >
+        c25 = #{c25,jdbcType=NUMERIC},
+      </if>
+      <if test="c28 != null" >
+        c28 = #{c28,jdbcType=NUMERIC},
+      </if>
+      <if test="c29 != null" >
+        c29 = #{c29,jdbcType=NUMERIC},
+      </if>
+      <if test="c30 != null" >
+        c30 = #{c30,jdbcType=NUMERIC},
+      </if>
+      <if test="c31 != null" >
+        c31 = #{c31,jdbcType=NUMERIC},
+      </if>
+      <if test="c32 != null" >
+        c32 = #{c32,jdbcType=NUMERIC},
+      </if>
+      <if test="c33 != null" >
+        c33 = #{c33,jdbcType=NUMERIC},
+      </if>
+      <if test="c34 != null" >
+        c34 = #{c34,jdbcType=NUMERIC},
+      </if>
+      <if test="c35 != null" >
+        c35 = #{c35,jdbcType=NUMERIC},
+      </if>
+    </set>
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kpap.basis.model.ComDevCost" >
+    update com_dev_cost
+    set start_date = #{startDate,jdbcType=DATE},
+      end_date = #{endDate,jdbcType=DATE},
+      cycle = #{cycle,jdbcType=NUMERIC},
+      e23 = #{e23,jdbcType=NUMERIC},
+      f23 = #{f23,jdbcType=NUMERIC},
+      c25 = #{c25,jdbcType=NUMERIC},
+      c28 = #{c28,jdbcType=NUMERIC},
+      c29 = #{c29,jdbcType=NUMERIC},
+      c30 = #{c30,jdbcType=NUMERIC},
+      c31 = #{c31,jdbcType=NUMERIC},
+      c32 = #{c32,jdbcType=NUMERIC},
+      c33 = #{c33,jdbcType=NUMERIC},
+      c34 = #{c34,jdbcType=NUMERIC},
+      c35 = #{c35,jdbcType=NUMERIC}
+    where pro_code = #{proCode,jdbcType=VARCHAR}
+  </update>
+</mapper>
